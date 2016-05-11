@@ -73,3 +73,7 @@ body {
 .bigga {
     font-size: 400%;
 }
+
+#harmonic-analysis > tr > td {
+    padding: 0.5em;
+}
