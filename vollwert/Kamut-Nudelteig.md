@@ -15,6 +15,6 @@ Mehl und Salz mischen. Ich habe erst Wasser zugegeben, etwas verknetet, Öl zuge
 
 Z.B. zu Tagliatelle schneiden und in Salzwasser mit Öl 3-4 Minuten kochen.
 
-## Urteil
+## Ergebnis
 
 War nach etwa 4 Minuten Kochen lecker (wie gesagt mit 3g Gemüsesalz etwas salzig), aber nicht bißfest. Muß ich es weniger lange kochen lassen? Oder vorher die Nudeln ein paar Stunden trocknen lassen?

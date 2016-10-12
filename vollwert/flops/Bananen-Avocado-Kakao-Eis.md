@@ -14,6 +14,6 @@ für 2 ordentliche Portionen
 
 Alle Zutaten im Hochleistungsmixer cremig pürieren. Servieren.
 
-## Urteil
+## Ergebnis
 
 Mit Bamix (Zauberstab) statt Hochleistungsmixer zubereitet. Viel zu bananig und etwas schleimig im Geschmack (das Verhältnis war aber auch 280:42 statt der empfohlenen 250:50). Der Hochleistungsmixer (oder längeres bamixen) hätte die Schleimigkeit wohl vermindert. Aber alles in allem nicht so der Hit. Werde es nicht wiederholen.
