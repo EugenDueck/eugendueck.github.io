@@ -5,13 +5,13 @@
 für 4 Personen
 
 - 5 große Kartoffeln
-- 200g Champignons
+- 200 g Champignons
 - 1 Stange Lauch
 - Samsoe-Käse zum Bestreuen
 - Butter für die Auflaufform
 
 Sauce:
-- 250g Sahne
+- 250 g Sahne
 - 1 Ei
 - Paprikapulver (süß)
 - 1 Knoblauchzehe
