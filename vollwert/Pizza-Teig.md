@@ -10,10 +10,11 @@ für 2 Bleche á 30x30 cm
 - 90 ml Wasser
 - 4 EL Sahne
 - 1 TL Kräutersalz
+- (Originalrezept, hatte ich vergessen: 60g Butter oder Öl)
 
 ## Zubereitung
 
-Mehl in Schüssel geben, eine Mulde in das Mehl eindrücken, die Hefe in die Mulde bröckeln und mit ein paar EL von dem Wasser zu einem geschmeidigen Vorteig rühren. An einem warmen Ort zugedeckt 1/2 Stunde gehen lassen. Dann Wasser, Ei, Salz und unterrühren. Gut durchkneten, bis der Teig nicht mehr an der Schüssel klebt. Teig noch einmal 1 Stunde gehen lassen.
+Mehl in Schüssel geben, eine Mulde in das Mehl eindrücken, die Hefe in die Mulde bröckeln und mit ein paar EL von dem Wasser zu einem geschmeidigen Vorteig rühren. An einem warmen Ort zugedeckt 1/2 Stunde gehen lassen. Dann Wasser, Ei, Salz (und nach Original: Butter bzw. Öl) unterrühren. Gut durchkneten, bis der Teig nicht mehr an der Schüssel klebt. Teig noch einmal 1 Stunde gehen lassen.
 
 Teig etwa 3mm dünn ausrollen und auf das Blech legen, mit reichlich mit Öl bepinseln. Nach Belieben belegen.
 
