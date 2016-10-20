@@ -18,7 +18,7 @@ Rezept nach http://www.chefkoch.de/rezepte/1945101316596273/Vollkornbrot-mit-Haf
 
 ## Zubereitung
 
-Hefe in Wasser auflösen, dann alle Zutaten in Schüssel geben und rühren, bis alles gut vermischt ist. Kastenform mit Butter einfetten, den Teig hineingeben. Deckel drauf und 1 Stunde gehen lassen. Form mit Deckel in dem auf 250℃ vorgeheizten Ofen 60 Minuten backen. 10 Minuten vor dem Rausnehmen den Kastenformdeckel abnehmen.
+Hefe in Wasser auflösen, dann alle Zutaten in Schüssel geben und rühren, bis alles gut vermischt ist. Kastenform mit Butter einfetten, den Teig hineingeben. Deckel drauf und 1 Stunde gehen lassen. Form mit Deckel in dem auf 250℃ vorgeheizten Ofen 60 Minuten (in meinem schwachbrüstigen 100 Volt-Ofen. DEIN Ofen braucht wahrscheinlich weniger Temperatur und/oder weniger Minuten - also immer mal kontrollieren!) backen. 10 Minuten vor dem Rausnehmen den Kastenformdeckel abnehmen.
 
 ## Ergebnis
 
