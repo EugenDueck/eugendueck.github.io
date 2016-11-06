@@ -9,7 +9,7 @@ Rezept nach http://www.chefkoch.de/rezepte/1945101316596273/Vollkornbrot-mit-Haf
 - 500 g Wasser
 - 5 g weißer Sesam
 - 5 g schwarzer Sesam
-- 50 g rohe Kürbiskerne
+- 30 g geschroteter Roggen
 - 30 g Sonnenblumenkerne
 - 30 g Leinsamen
 - 13g Salz
