@@ -12,8 +12,9 @@ Rezept nach http://www.chefkoch.de/rezepte/1945101316596273/Vollkornbrot-mit-Haf
 - 30 g geschroteter Roggen
 - 30 g Sonnenblumenkerne
 - 30 g Leinsamen
+- 10 g Kürbiskerne
 - 13g Salz
-- 2 EL (=20g) Epfelessig
+- 2 EL (=20g) Apfelessig
 
 
 ## Zubereitung
