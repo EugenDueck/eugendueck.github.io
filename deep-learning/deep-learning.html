@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<title>機械学習とディープラーニング</title>
+<meta name="author" content="(Emacs org-mode)"/>
+<meta name="keywords" content=""/>
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="./reveal.js/css/theme/moon.css" id="theme"/>
+<link rel="stylesheet" href=""/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1>機械学習とディープラーニング</h1>
+<h2>Emacs org-mode</h2>
+<h2><a href="mailto:eugen@tworks.co.jp">eugen@tworks.co.jp</a></h2>
+<h2></h2>
+</section>
+<section>
+<section id="slide-orgheadline1">
+<h2 id="orgheadline1">中国の手書き認識</h2>
+<p>
+(Chinese Handwriting Recognition)
+</p>
+
+
+<div class="figure">
+<p><img src="./IDCAR2011 - Chinese Handwriting Recognition Competition.png" alt="IDCAR2011 - Chinese Handwriting Recognition Competition.png" />
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline3">
+<h2 id="orgheadline3">画像自動アノテーション</h2>
+<p>
+(Automatic Image Annotation)
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力</th>
+<th scope="col" class="org-left">出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><img src="./guitar.png" alt="guitar.png" /></td>
+<td class="org-left">man in black shirt is playing guitar （ギターを引いている黒いシャツの男性）</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力</th>
+<th scope="col" class="org-left">出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><img src="./cat.png" alt="cat.png" /></td>
+<td class="org-left">black cat is sitting on top of suitcase （スーツケースの上に座っている黒猫）</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<a href="http://cs.stanford.edu/people/karpathy/deepimagesent/">http://cs.stanford.edu/people/karpathy/deepimagesent/</a>
+</p>
+</section>
+<section id="slide-orgheadline2">
+<h3 id="orgheadline2">誤差</h3>
+
+<div class="figure">
+<p><img src="./NotGorillas.jpg" alt="NotGorillas.jpg" />
+</p>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline4">
+<h2 id="orgheadline4">人工知能とは</h2>
+<p>
+(Artificial Intelligence)
+</p>
+
+<blockquote nil>
+<p>
+人工的にコンピュータ上などで人間と同様の知能を実現させようという試み、あるいはそのための一連の基礎技術を指す
+</p>
+</blockquote>
+
+<p>
+具体的には
+</p>
+<ul>
+<li>人間の使う自然言語を理解したり</li>
+<li>論理的な推論を行ったり</li>
+<li>経験から学習する</li>
+
+</ul>
+<p>
+コンピュータプログラムなどのことをいう。
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline6">
+<h2 id="orgheadline6">機械学習とは</h2>
+<p>
+(Machine Learning)
+</p>
+
+<blockquote nil>
+<p>
+人工知能における研究課題の一つで、経験(データ)によって賢くなるアルゴリズムの研究を指す
+</p>
+</blockquote>
+
+<p>
+具体的には、
+</p>
+<ul>
+<li>データから知識・ルールを自動獲得する</li>
+<li>データの適切な表現方法も獲得する</li>
+<li>人工知能の中で、人が知識やルールを明示的に与える方法の限界から生まれてきたもの</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline5">
+<h3 id="orgheadline5">機械学習の分類</h3>
+<ul>
+<li>教師あり学習 Supervised Learning</li>
+<li>教師なし学習 Unsupervised Learning</li>
+<li>強化学習 Reinforcement Learning</li>
+<li>&#x2026;</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline17">
+<h2 id="orgheadline17">教師あり学習</h2>
+<p>
+(Supervised Learning)
+</p>
+
+<p>
+入力xから出力yへの関数  f(x)=yを訓練事例{(x<sub>i</sub>, y<sub>i</sub>)}を元に学習
+</p>
+</section>
+<section id="slide-orgheadline16">
+<h3 id="orgheadline16">目的：汎化</h3>
+<p>
+(Generalization)
+</p>
+
+<p>
+学習後、そのf(x)で、訓練事例以外のxからも適切なyを予測できること
+</p>
+</section>
+<section id="slide-orgheadline7">
+<h4 id="orgheadline7">例1: スパム分類</h4>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力</th>
+<th scope="col" class="org-left">出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">メール</td>
+<td class="org-left">スパム or 普通</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slide-orgheadline8">
+<h4 id="orgheadline8">例2: 株価予測</h4>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力</th>
+<th scope="col" class="org-left">出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">株価に関係する全情報</td>
+<td class="org-left">明日の株価の予測</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slide-orgheadline9">
+<h4 id="orgheadline9">教師あり学習のフェーズ</h4>
+<p>
+少なくとも2つのフェーズに分かれている
+</p>
+<ul>
+<li>学習フェーズ Training Phase</li>
+<li>適用フェーズ Application Phase</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline10">
+<h4 id="orgheadline10">学習フェーズ Training Phase</h4>
+<p>
+f(x)の学習のため、訓練事例(Training Data)が採用される
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力 (画像）</th>
+<th scope="col" class="org-right">出力 (数字)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_2_0.png" alt="slice_2_0.png" /></td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_5_0.png" alt="slice_5_0.png" /></td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_2_2.png" alt="slice_2_2.png" /></td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_1_7.png" alt="slice_1_7.png" /></td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-left">&#x2026;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slide-orgheadline11">
+<h4 id="orgheadline11">適用フェーズ Application Phase</h4>
+<p>
+訓練事例で学習の後、fで任意な入力から出力を予測する
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力 (画像）</th>
+<th scope="col" class="org-left">出力 (数字)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_2_2.png" alt="slice_2_2.png" /></td>
+<td class="org-left"><b>?</b></td>
+</tr>
+
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_5_2.png" alt="slice_5_2.png" /></td>
+<td class="org-left"><b>?</b></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slide-orgheadline12">
+<h4 id="orgheadline12">学習する関数について</h4>
+<p>
+訓練集合の誤差をOにさせる関数fは無限にあるが、訓練事例以外のxでも適切なyを予測できるか、
+学習フェーズ後は分からない
+</p>
+
+<p>
+「訓練集合の誤差が低い」より「適用フェーズの誤差が低い」のほうが大事
+</p>
+
+<p>
+→教師あり学習で普通はもう一つのフェーズがある：検証フェーズ Validation Phase
+</p>
+</section>
+<section id="slide-orgheadline13">
+<h4 id="orgheadline13">極端な例</h4>
+<p>
+.NetのDictionary&lt;x → y&gt;をｆとして使って、学習フェーズで
+</p>
+<div class="org-src-container">
+
+<pre  class="src src-csharp"><span style="color: #0000FF;">foreach</span> (pair <span style="color: #0000FF;">in</span> &#35347;&#32244;&#38598;&#21512;)
+  dictionary[<span style="color: #D0372D;">pair</span>.x] = <span style="color: #D0372D;">pair</span>.y;
+</pre>
+</div>
+<p>
+をすれば、訓練集合の誤差は「０」になるが、訓練事例意外のxから予測ができない
+</p>
+
+<p>
+→汎化できない
+</p>
+</section>
+<section id="slide-orgheadline14">
+<h4 id="orgheadline14">検証フェーズ</h4>
+<p>
+(Validation Phase)
+</p>
+
+<p>
+テスト集合を使う
+</p>
+
+<p>
+テスト集合のxからfでyを予測して、テスト集合のy（正確）と比較して、テスト誤差を特定
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力 (画像）</th>
+<th scope="col" class="org-right">予測 (数字)</th>
+<th scope="col" class="org-right">正解 (数字)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_2_14.png" alt="slice_2_14.png" /></td>
+<td class="org-right">0</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-left"><img src="./MNIST-digits/slice_5_3.png" alt="slice_5_3.png" /></td>
+<td class="org-right">5</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-left">&#x2026;</td>
+<td class="org-right">&#x2026;</td>
+<td class="org-right">&#x2026;</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slide-orgheadline15">
+<h4 id="orgheadline15">モデル選択</h4>
+<p>
+(Model Selection)
+</p>
+
+<p>
+複数（「モデル」とも言われる）fを学習し、それぞれのテスト誤差を特定して、低いテスト誤差のfを選択
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline19">
+<h2 id="orgheadline19">簡単な例</h2>
+<p>
+xもyも一次元
+</p>
+
+<p>
+正弦曲線から取得した訓練事例
+</p>
+
+
+<div class="figure">
+<p><img src="./Training Data and Generating Function.png" alt="Training Data and Generating Function.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline18">
+<h3 id="orgheadline18">4つのモデルを学習してみる</h3>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">M</th>
+<th scope="col" class="org-left">関数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">0</td>
+<td class="org-left">f(x)=a</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">f(x)=a+bx</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">f(x)=a+bx+cx<sup>2</sup>+dx<sup>3</sup></td>
+</tr>
+
+<tr>
+<td class="org-right">9</td>
+<td class="org-left">f(x)=a+bx+cx<sup>2</sup>+dx<sup>3</sup>+&#x2026;+jx<sup>9</sup></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section>
+
+
+<div class="figure">
+<p><img src="./Several Models.png" alt="Several Models.png" />
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgheadline22">
+<h2 id="orgheadline22">教師なし学習</h2>
+<p>
+(Unsupervised Learning)
+</p>
+
+<p>
+入力xのみから学習する
+</p>
+</section>
+<section id="slide-orgheadline20">
+<h3 id="orgheadline20">例1:クラスタリング</h3>
+<p>
+似ているデータをまとめてグループに分ける
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">入力</th>
+<th scope="col" class="org-left">出力</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><img src="./clustering-input.png" alt="clustering-input.png" /></td>
+<td class="org-left"><img src="./clustering-output.png" alt="clustering-output.png" /></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="slide-orgheadline21">
+<h3 id="orgheadline21">例2:異常検知</h3>
+<p>
+(Anomaly Detection)
+</p>
+
+<p>
+入力 : 発注のPriceとQuantity、口座の可能額、銘柄の市場情報
+</p>
+
+<p>
+出力 : 通常と異なるアクセスパターン（誤入力？不正アクセス？など）
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline25">
+<h2 id="orgheadline25">強化学習 Reinforcement Learning</h2>
+
+<div class="figure">
+<p><img src="./reinforcement-learning.png" alt="reinforcement-learning.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline23">
+<h3 id="orgheadline23">例：テレビゲーム</h3>
+<p>
+Atari Breakoutというゲーム
+<a href="http://youtu.be/V1eYniJ0Rnk">http://youtu.be/V1eYniJ0Rnk</a>
+</p>
+</section>
+<section id="slide-orgheadline24">
+<h3 id="orgheadline24">Big Dog Robot</h3>
+
+<div class="figure">
+<p><img src="./BigDogOnIce.jpeg" alt="BigDogOnIce.jpeg" />
+</p>
+</div>
+
+<p>
+<a href="http://youtu.be/W1czBcnX1Ww">http://youtu.be/W1czBcnX1Ww</a>
+</p>
+
+<p>
+Kick: <a href="http://youtu.be/W1czBcnX1Ww#t=33">http://youtu.be/W1czBcnX1Ww#t=33</a>
+</p>
+
+<p>
+Ice: <a href="http://youtu.be/W1czBcnX1Ww#t=83">http://youtu.be/W1czBcnX1Ww#t=83</a>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline26">
+<h2 id="orgheadline26">深層学習 Deep Learning</h2>
+
+<div class="figure">
+<p><img src="./deep-learning-map.png" alt="deep-learning-map.png" />
+</p>
+</div>
+
+<p>
+fとして使えるモデルと学習方法が沢山ある
+</p>
+
+<p>
+その中の一つの柔軟でシンプルなDNNである
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgheadline35">
+<h2 id="orgheadline35">ニューラルネットワーク</h2>
+
+<div class="figure">
+<p><img src="./single-layer-neural-net.png" alt="single-layer-neural-net.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline27">
+<h3 id="orgheadline27">ニューロン</h3>
+
+<div class="figure">
+<p><img src="./150px-Perceptron.svg.png" alt="150px-Perceptron.svg.png" />
+</p>
+</div>
+
+<p>
+f(x): y = x<sub>1</sub> w<sub>1</sub> + x<sub>2</sub> w<sub>2</sub> + &#x2026; + x<sub>7</sub> w<sub>7</sub>
+</p>
+
+<p>
+w<sub>1</sub>&#x2026;w<sub>7</sub>の値を学習中に決める
+</p>
+</section>
+<section id="slide-orgheadline28">
+<h3 id="orgheadline28">Deep Neural Network (DNN)</h3>
+<p>
+深い階層を持ったニューラルネットワークのこと
+</p>
+
+
+<div class="figure">
+<p><img src="./deep-learning-input-hidden-output.png" alt="deep-learning-input-hidden-output.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline29">
+<h3 id="orgheadline29">モデルのパラメータが多い</h3>
+<ul>
+<li>浅いニューラルネットワークのBack Propagationと言われる効果的な学習方法は、1975年に発明された</li>
+<li>DNNでは、学習すべきパラメータと層が多いので、Back Propagationのようなアルゴリズムが非常に時間がかかる</li>
+<li>深いニューラルネットワークは実際に使われていなかった</li>
+<li>2000年以降、深層学習の学習方法がいくつか発明される</li>
+<li>~2009年以降、深層学習が流行って、沢山の応用が開発された</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline30">
+<h3 id="orgheadline30">オートエンコーダ</h3>
+<p>
+DNNの学習のためにオートエンコーダが使える
+</p>
+
+
+<div class="figure">
+<p><img src="./auto-encoder.png" alt="auto-encoder.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline31">
+<h3 id="orgheadline31">オートエンコーダ</h3>
+<ul>
+<li>入力データの集合を出力層で再現できるように学習</li>
+<li>浅いから速くできる</li>
+<li>オートエンコーダの中間層が狭い→圧縮と解凍</li>
+<li>圧縮＝抽象化=汎化</li>
+
+</ul>
+</section>
+<section id="slide-orgheadline32">
+<h3 id="orgheadline32">層ごとにオートエンコーダを学習</h3>
+
+<div class="figure">
+<p><img src="./dnn-pretraining.png" alt="dnn-pretraining.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline33">
+<h3 id="orgheadline33">抽象化 (Abstraction)</h3>
+
+<div class="figure">
+<p><img src="./deep-learning-abstraction.png" alt="deep-learning-abstraction.png" />
+</p>
+</div>
+</section>
+<section id="slide-orgheadline34">
+<h3 id="orgheadline34">抽象化 (Abstraction)</h3>
+
+<div class="figure">
+<p><img src="./deep-image-abstractions.png" alt="deep-image-abstractions.png" />
+</p>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }]
+});
+</script>
+</body>
+</html>
