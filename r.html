@@ -169,7 +169,7 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	      newContent += "<tr>";
 	      const variedLine = formatAndVaryContent(line);
 	      for (const cell of variedLine.matchAll(/\S+/g))
-		  newContent += "<td>" + cell + "</td>";
+		  newContent += "<td><b>" + cell + "</b></td>";
 	      newContent += "</tr>";
 	  }
 	  var contentElement = document.getElementById("content");
