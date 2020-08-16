@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Jazz Practice Randomizer</title>
+  </head>
+  <body>
+    <script>
+      var contents = new Map();
+      contents["major"] = `
+Cm7   F7   B♭Δ
+C♯m7  F♯7  BΔ
+D♭m7  G♭7  C♭Δ
+Dm7   G7   CΔ
+D♯m7  G♯7  C♯Δ
+E♭m7  A♭7  D♭Δ
+Em7   A7   DΔ
+Fm7   B♭7  E♭Δ
+F♯m7  B7   EΔ
+G♭m7  C♭7  F♭Δ
+Gm7   C7   FΔ
+G♯m7  C♯7  F♯Δ
+A♭m7  D♭7  G♭Δ
+Am7   D7   GΔ
+A♯m7  D♯7  G♯Δ
+B♭m7  E♭7  A♭Δ
+Bm7   E7   AΔ
+`;
+      contents["minor"] = `
+Cø      F7alt   B♭m7
+C♯ø     F♯7alt  Bm7
+D♭ø     G♭7alt  C♭m7
+Dø      G7alt   Cm7
+D♯ø     G♯7alt  C♯m7
+E♭ø     A♭7alt  D♭m7
+Eø      A7alt   Dm7
+Fø      B♭7alt  E♭m7
+F♯ø     B7alt   Em7
+G♭ø     C♭7alt  F♭m7
+Gø      C7alt   Fm7
+G♯ø     C♯7alt  F♯m7
+A♭ø     D♭7alt  G♭m7
+Aø      D7alt   Gm7
+A♯ø     D♯7alt  G♯m7
+B♭ø     E♭7alt  A♭m7
+Bø      E7alt   Am7
+`;
+      function shuffleArray(array) {
+	  for (let i = array.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [array[i], array[j]] = [array[j], array[i]];
+	  }
+      }
+      function varyContent(line) {
+	  line = line + ""; // toString()
+	  line = line.replace(/7alt/g, '7<sup>alt</sup>');
+	  if (Math.random() <= 0.5)
+	      line = line.replace(/m/g, '-');
+	  if (Math.random() <= 0.5)
+	      line = line.replace(/Δ/g, 'M7');
+	  if (Math.random() <= 0.3333)
+	      line = line.replace(/ø   /g, 'm7♭5');
+	  else if (Math.random() <= 0.3333)
+	      line = line.replace(/ø   /g, '-7♭5');
+	  return line;
+      }
+      function setContent(button, what) {
+	  for (const btn of document.getElementsByTagName("button")) {
+	      btn.style.background = btn == button ? '#0f0' : '#fff';
+	  }
+	  var content = contents[what];
+	  const contentArray = [...content.matchAll(/[^\n]+/g)];
+	  shuffleArray(contentArray);
+	  var newContent = "";
+          for (const line of contentArray)
+	      newContent += varyContent(line) + "<br />";
+	  var contentElement = document.getElementById("content");
+	  contentElement.innerHTML = newContent;
+      }
+    </script>
+    <button onclick="setContent(this, 'major')">IIm7 / V7 / IΔ</button>
+    <button onclick="setContent(this, 'minor')">IIø / V7<sup>alt</sup> / Im7</button>
+    <pre id="content"/>     
+  </body>
+</html>
