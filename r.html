@@ -19,6 +19,12 @@
       }*/
     </style>
     <script>
+      var instructions = new Map();
+      instructions["flash-cards"] = "Choose inversion (off the 7th or of the 3rd) ahead of time";
+      instructions["dominant-7"] = "Start off the 7th";
+      instructions["dominant-3"] = "Start off the 3th";
+      instructions["major-7"] = "Start off the 7th";
+      instructions["major-3"] = "Start off the 3th";
       var contents = new Map();
       contents["major-251"] = `
 Cm7   F7   B♭Δ
@@ -161,7 +167,17 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	      btn.style.background = btn == button ? '#f2f2f2' : '#fff';
 	  }
       }
-      function setContent(button, what, shuffle) {
+      function setContent(newContent) {
+	  document.getElementById("content").innerHTML = newContent;
+      }
+      function setInstructions(what) {
+	  const instruc = instructions[what];
+	  document.getElementById("instructions").innerHTML =
+	      instruc
+	      ? ("<font color='#a00'>" + instruc + "</font>")
+	      : "";
+      }
+      function changeContent(button, what, shuffle) {
 	  highlightButton(button);
 	  var content = contents[what];
 	  const contentArray = [...content.matchAll(/[^\n]+/g)];
@@ -175,8 +191,8 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 		  newContent += "<td><b>" + cell + "</b></td>";
 	      newContent += "</tr>";
 	  }
-	  var contentElement = document.getElementById("content");
-	  contentElement.innerHTML = newContent;
+	  setInstructions(what);
+	  setContent(newContent);
       }
       function flashCardDrill(button) {
 	  highlightButton(button);
@@ -202,8 +218,8 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	      newContent += "<td><b>" + formatAndVaryContent(item) + "</b></td>";
 	      i++;
 	  }
-	  var contentElement = document.getElementById("content");
-	  contentElement.innerHTML = newContent;
+	  setInstructions("flash-cards")
+	  setContent(newContent);
       }
       </script>
   </head>
@@ -211,16 +227,17 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
     <center>
       <table id="buttons">
 	<tr>
-	  <td onclick="setContent(this, 'major-251', true)">Maj II-V-I</td>
-	  <td onclick="setContent(this, 'minor-251', true)">Min II-V-I</td>
-	  <td onclick="setContent(this, 'dominant-7')">Dom (7)</td>
-	  <td onclick="setContent(this, 'dominant-3')">Dom (3)</td>
-	  <td onclick="setContent(this, 'major-7')">Maj (7)</td>
-	  <td onclick="setContent(this, 'major-3')">Maj (3)</td>
-	  <td onclick="setContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
+	  <td onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
+	  <td onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
+	  <td onclick="changeContent(this, 'dominant-7')">Dom (7)</td>
+	  <td onclick="changeContent(this, 'dominant-3')">Dom (3)</td>
+	  <td onclick="changeContent(this, 'major-7')">Maj (7)</td>
+	  <td onclick="changeContent(this, 'major-3')">Maj (3)</td>
+	  <td onclick="changeContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
 	  <td onclick="flashCardDrill(this)">Flash Cards</td>
 	</tr>
       </table>
+      <div id="instructions"></div>
       <table id="content"/>
     </center>
   </body>
