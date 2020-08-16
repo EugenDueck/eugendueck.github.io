@@ -20,7 +20,7 @@
     </style>
     <script>
       var instructions = new Map();
-      instructions["flash-cards"] = "Choose inversion (off the 7th or of the 3rd) ahead of time";
+      instructions["flash-cards"] = "Decide inversion (off the 7th or of the 3rd) ahead of time";
       instructions["dominant-7"] = "Start off the 7th";
       instructions["dominant-3"] = "Start off the 3th";
       instructions["major-7"] = "Start off the 7th";
@@ -46,23 +46,23 @@ B♭m7  E♭7  A♭Δ
 Bm7   E7   AΔ
 `;
       contents["minor-251"] = `
-Cø   F7alt   B♭m7
-C♯ø  F♯7alt  Bm7
-D♭ø  G♭7alt  C♭m7
-Dø   G7alt   Cm7
-D♯ø  G♯7alt  C♯m7
-E♭ø  A♭7alt  D♭m7
-Eø   A7alt   Dm7
-Fø   B♭7alt  E♭m7
-F♯ø  B7alt   Em7
-G♭ø  C♭7alt  F♭m7
-Gø   C7alt   Fm7
-G♯ø  C♯7alt  F♯m7
-A♭ø  D♭7alt  G♭m7
-Aø   D7alt   Gm7
-A♯ø  D♯7alt  G♯m7
-B♭ø  E♭7alt  A♭m7
-Bø   E7alt   Am7
+Cø7   F7alt   B♭m7
+C♯ø7  F♯7alt  Bm7
+D♭ø7  G♭7alt  C♭m7
+Dø7   G7alt   Cm7
+D♯ø7  G♯7alt  C♯m7
+E♭ø7  A♭7alt  D♭m7
+Eø7   A7alt   Dm7
+Fø7   B♭7alt  E♭m7
+F♯ø7  B7alt   Em7
+G♭ø7  C♭7alt  F♭m7
+Gø7   C7alt   Fm7
+G♯ø7  C♯7alt  F♯m7
+A♭ø7  D♭7alt  G♭m7
+Aø7   D7alt   Gm7
+A♯ø7  D♯7alt  G♯m7
+B♭ø7  E♭7alt  A♭m7
+Bø7   E7alt   Am7
 `;
       contents["dominant-7"] = `
 E7  A7
@@ -149,16 +149,23 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
       }
       function formatAndVaryContent(line) {
 	  line = line + ""; // toString()
-	  line = line.replace(/7alt/g, '7<sup>alt</sup>');
+	  line = line.replace(/7alt/g, '<sup>7alt</sup>');
 	  line = line.replace(/o7/g, '<sup>o7</sup>');
 	  if (Math.random() <= 0.5)
-	      line = line.replace(/m/g, '-');
-	  if (Math.random() <= 0.5)
-	      line = line.replace(/Δ/g, 'M7');
+	      line = line.replace(/m7/g, '-<sup>7</sup>');
 	  if (Math.random() <= 0.3333)
-	      line = line.replace(/ø/g, 'm7<sup>♭5</sup>');
+	      line = line.replace(/Δ/g, 'M<sup>7</sup>');
 	  else if (Math.random() <= 0.3333)
-	      line = line.replace(/ø/g, '-7<sup>♭5</sup>');
+	      line = line.replace(/Δ/g, 'maj<sup>7</sup>');
+	  else
+	      line = line.replace(/Δ/g, '<sup>Δ</sup>');
+	  if (Math.random() <= 0.3333)
+	      line = line.replace(/ø7/g, 'm<sup>7♭5</sup>');
+	  else if (Math.random() <= 0.3333)
+	      line = line.replace(/ø7/g, '-<sup>7♭5</sup>');
+	  else
+	      line = line.replace(/ø7/g, '<sup>ø7</sup>');
+	  line = line.replace(/7($|[^<a♭♯])/g, '<sup>7</sup>$1');
 	  return line;
       }
       function highlightButton(button) {
@@ -197,7 +204,7 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
       function flashCardDrill(button) {
 	  highlightButton(button);
 	  var pitches = 'C D E F G A B';
-	  var chordTypes = 'Δ 7 m7 m7♭5 7alt o7';
+	  var chordTypes = 'Δ 7 m7 ø7 7alt o7';
 	  var items = [];
 	  for (const accidental of ['', '♯', '♭']) {
 	      for (const pitch of pitches.matchAll(/\S+/g)) {
