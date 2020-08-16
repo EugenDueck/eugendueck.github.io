@@ -155,11 +155,14 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	      line = line.replace(/ø/g, '-7<sup>♭5</sup>');
 	  return line;
       }
-      function setContent(button, what, shuffle) {
+      function highlightButton(button) {
 	  const buttonsTable = document.getElementById("buttons");
 	  for (const btn of buttonsTable.getElementsByTagName("td")) {
 	      btn.style.background = btn == button ? '#f2f2f2' : '#fff';
 	  }
+      }
+      function setContent(button, what, shuffle) {
+	  highlightButton(button);
 	  var content = contents[what];
 	  const contentArray = [...content.matchAll(/[^\n]+/g)];
 	  if (shuffle)
@@ -171,6 +174,33 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	      for (const cell of variedLine.matchAll(/\S+/g))
 		  newContent += "<td><b>" + cell + "</b></td>";
 	      newContent += "</tr>";
+	  }
+	  var contentElement = document.getElementById("content");
+	  contentElement.innerHTML = newContent;
+      }
+      function flashCardDrill(button) {
+	  highlightButton(button);
+	  var pitches = 'C D E F G A B';
+	  var chordTypes = 'Δ 7 m7 m7♭5 7alt o7';
+	  var items = [];
+	  for (const accidental of ['', '♯', '♭']) {
+	      for (const pitch of pitches.matchAll(/\S+/g)) {
+		  for (const chordType of chordTypes.matchAll(/\S+/g)) {
+		      items.push(pitch + accidental + chordType);
+		  }
+	      }
+	  }
+	  shuffleArray(items);
+	  var i = 0;
+	  var newContent = "";
+	  for (const item of items) {
+	      if ((i % 9) == 0) {
+		  if (i > 0)
+		      newContent += "</tr>";
+		  newContent += "<tr>";
+	      }
+	      newContent += "<td><b>" + formatAndVaryContent(item) + "</b></td>";
+	      i++;
 	  }
 	  var contentElement = document.getElementById("content");
 	  contentElement.innerHTML = newContent;
@@ -188,6 +218,7 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	  <td onclick="setContent(this, 'major-7')">Maj (7)</td>
 	  <td onclick="setContent(this, 'major-3')">Maj (3)</td>
 	  <td onclick="setContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
+	  <td onclick="flashCardDrill(this)">Flash Cards</td>
 	</tr>
       </table>
       <table id="content"/>
