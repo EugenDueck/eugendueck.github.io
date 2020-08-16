@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Jazz Practice Randomizer</title>
-  </head>
-  <body>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jazz Practice Randomizer</title>
+    <style>
+      #buttons td {
+	  border: 1px solid #aaa;
+      }
+      #content {
+	  width: 100%;
+      }
+      #content tr:nth-child(even) {
+	  background-color: #f2f2f2;
+      }
+/*      #content td {
+	  width: 33.333%;
+      }*/
+    </style>
     <script>
       var contents = new Map();
-      contents["major"] = `
+      contents["major-251"] = `
 Cm7   F7   B♭Δ
 C♯m7  F♯7  BΔ
 D♭m7  G♭7  C♭Δ
@@ -27,24 +39,101 @@ A♯m7  D♯7  G♯Δ
 B♭m7  E♭7  A♭Δ
 Bm7   E7   AΔ
 `;
-      contents["minor"] = `
-Cø      F7alt   B♭m7
-C♯ø     F♯7alt  Bm7
-D♭ø     G♭7alt  C♭m7
-Dø      G7alt   Cm7
-D♯ø     G♯7alt  C♯m7
-E♭ø     A♭7alt  D♭m7
-Eø      A7alt   Dm7
-Fø      B♭7alt  E♭m7
-F♯ø     B7alt   Em7
-G♭ø     C♭7alt  F♭m7
-Gø      C7alt   Fm7
-G♯ø     C♯7alt  F♯m7
-A♭ø     D♭7alt  G♭m7
-Aø      D7alt   Gm7
-A♯ø     D♯7alt  G♯m7
-B♭ø     E♭7alt  A♭m7
-Bø      E7alt   Am7
+      contents["minor-251"] = `
+Cø   F7alt   B♭m7
+C♯ø  F♯7alt  Bm7
+D♭ø  G♭7alt  C♭m7
+Dø   G7alt   Cm7
+D♯ø  G♯7alt  C♯m7
+E♭ø  A♭7alt  D♭m7
+Eø   A7alt   Dm7
+Fø   B♭7alt  E♭m7
+F♯ø  B7alt   Em7
+G♭ø  C♭7alt  F♭m7
+Gø   C7alt   Fm7
+G♯ø  C♯7alt  F♯m7
+A♭ø  D♭7alt  G♭m7
+Aø   D7alt   Gm7
+A♯ø  D♯7alt  G♯m7
+B♭ø  E♭7alt  A♭m7
+Bø   E7alt   Am7
+`;
+      contents["dominant-7"] = `
+E7  A7
+D7  G7
+C7  F7
+B♭7 E♭7
+A♭7 D♭7
+F♯7 B7
+
+E♭7  A♭7
+C♯7  F♯7
+B7  E7
+A7  D7
+G7  C7
+F7  B♭7
+`;
+      contents["dominant-3"] = `
+A7  D7
+G7  C7
+F7  B♭7
+E♭7  A♭7
+C♯7  F♯7
+B7  E7
+
+A♭7 D♭7
+F♯7 B7
+E7  A7
+D7  G7
+C7  F7
+B♭7 E♭7
+`;
+      contents["major-7"] = `
+EΔ  AΔ
+DΔ  GΔ
+CΔ  FΔ
+B♭Δ E♭Δ
+A♭Δ D♭Δ
+F♯Δ BΔ
+
+E♭Δ  A♭Δ
+C♯Δ  F♯Δ
+BΔ  EΔ
+AΔ  DΔ
+GΔ  CΔ
+FΔ  B♭Δ
+`;
+      contents["major-3"] = `
+AΔ  DΔ
+GΔ  CΔ
+FΔ  B♭Δ
+E♭Δ  A♭Δ
+C♯Δ  F♯Δ
+BΔ  EΔ
+
+A♭Δ D♭Δ
+F♯Δ BΔ
+EΔ  AΔ
+DΔ  GΔ
+CΔ  FΔ
+B♭Δ E♭Δ
+`;
+      contents["diminished-tritone-sub"] = `
+CΔ  C♯o7 Dm7  D♯o7 Em7  E♭7  Dm7  D♭7 CΔ
+FΔ  F♯o7 Gm7  G♯o7 Am7  A♭7  Gm7  G♭7 FΔ
+B♭Δ Bo7  Cm7  C♯o7 Dm7  D♭7  Cm7  B7  B♭Δ
+
+E♭Δ Eo7  Fm7  F♯o7 Gm7  G♭7  Fm7  E7  E♭Δ
+A♭Δ Ao7  B♭m7 Bo7  Cm7  B7  B♭m7 A7 A♭Δ
+D♭Δ Do7  E♭m7 Eo7  Fm7  E7  E♭m7 D7 D♭Δ
+
+G♭Δ Go7  A♭m7 Ao7  B♭m7 A7  A♭m7 G7  G♭Δ
+BΔ  Co7  C♯m7 Do7  D♯m7 D7  C♯m7 C7  BΔ
+EΔ  Fo7  F♯m7 Go7  G♯m7 G7  F♯m7 F7  EΔ
+
+AΔ  A♯o7 Bm7  Co7  C♯m7 C7  Bm7  B♭7 AΔ
+DΔ  D♯o7 Em7  Fo7  F♯m7 F7  Em7  E♭7 DΔ
+GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 `;
       function shuffleArray(array) {
 	  for (let i = array.length - 1; i > 0; i--) {
@@ -52,35 +141,56 @@ Bø      E7alt   Am7
               [array[i], array[j]] = [array[j], array[i]];
 	  }
       }
-      function varyContent(line) {
+      function formatAndVaryContent(line) {
 	  line = line + ""; // toString()
 	  line = line.replace(/7alt/g, '7<sup>alt</sup>');
+	  line = line.replace(/o7/g, '<sup>o7</sup>');
 	  if (Math.random() <= 0.5)
 	      line = line.replace(/m/g, '-');
 	  if (Math.random() <= 0.5)
 	      line = line.replace(/Δ/g, 'M7');
 	  if (Math.random() <= 0.3333)
-	      line = line.replace(/ø   /g, 'm7♭5');
+	      line = line.replace(/ø/g, 'm7<sup>♭5</sup>');
 	  else if (Math.random() <= 0.3333)
-	      line = line.replace(/ø   /g, '-7♭5');
+	      line = line.replace(/ø/g, '-7<sup>♭5</sup>');
 	  return line;
       }
-      function setContent(button, what) {
-	  for (const btn of document.getElementsByTagName("button")) {
-	      btn.style.background = btn == button ? '#0f0' : '#fff';
+      function setContent(button, what, shuffle) {
+	  const buttonsTable = document.getElementById("buttons");
+	  for (const btn of buttonsTable.getElementsByTagName("td")) {
+	      btn.style.background = btn == button ? '#f2f2f2' : '#fff';
 	  }
 	  var content = contents[what];
 	  const contentArray = [...content.matchAll(/[^\n]+/g)];
-	  shuffleArray(contentArray);
+	  if (shuffle)
+	      shuffleArray(contentArray);
 	  var newContent = "";
-          for (const line of contentArray)
-	      newContent += varyContent(line) + "<br />";
+          for (const line of contentArray) {
+	      newContent += "<tr>";
+	      const variedLine = formatAndVaryContent(line);
+	      for (const cell of variedLine.matchAll(/\S+/g))
+		  newContent += "<td>" + cell + "</td>";
+	      newContent += "</tr>";
+	  }
 	  var contentElement = document.getElementById("content");
 	  contentElement.innerHTML = newContent;
       }
-    </script>
-    <button onclick="setContent(this, 'major')">IIm7 / V7 / IΔ</button>
-    <button onclick="setContent(this, 'minor')">IIø / V7<sup>alt</sup> / Im7</button>
-    <pre id="content"/>     
+      </script>
+  </head>
+  <body>
+    <center>
+      <table id="buttons">
+	<tr>
+	  <td onclick="setContent(this, 'major-251', true)">Maj II-V-I</td>
+	  <td onclick="setContent(this, 'minor-251', true)">Min II-V-I</td>
+	  <td onclick="setContent(this, 'dominant-7')">Dom (7)</td>
+	  <td onclick="setContent(this, 'dominant-3')">Dom (3)</td>
+	  <td onclick="setContent(this, 'major-7')">Maj (7)</td>
+	  <td onclick="setContent(this, 'major-3')">Maj (3)</td>
+	  <td onclick="setContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
+	</tr>
+      </table>
+      <table id="content"/>
+    </center>
   </body>
 </html>
