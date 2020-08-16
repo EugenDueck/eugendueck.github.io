@@ -26,6 +26,29 @@
       instructions["major-7"] = "Start off the 7th";
       instructions["major-3"] = "Start off the 3th";
       var contents = new Map();
+      contents["notes"] = `
+B♯
+C
+C♯
+D♭
+D
+D♯
+E♭
+E
+F♭
+E♯
+F
+F♯
+G♭
+G
+G♯
+A♭
+A
+A♯
+B♭
+B
+C♭
+`;
       contents["major-251"] = `
 Cm7   F7   B♭Δ
 C♯m7  F♯7  BΔ
@@ -234,6 +257,7 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
     <center>
       <table id="buttons">
 	<tr>
+	  <td onclick="changeContent(this, 'notes', true)">Notes</td>
 	  <td onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
 	  <td onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
 	  <td onclick="changeContent(this, 'dominant-7')">Dom (7)</td>
