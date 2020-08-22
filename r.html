@@ -6,17 +6,17 @@
     <title>Jazz Practise Randomizer</title>
     <style>
       #buttons td {
-	  border: 1px solid #aaa;
-	  cursor: pointer;
+          border: 1px solid #aaa;
+          cursor: pointer;
       }
       #content {
-	  width: 100%;
+          width: 100%;
       }
       #content tr:nth-child(even) {
-	  background-color: #f2f2f2;
+          background-color: #f2f2f2;
       }
       #practise tr:nth-child(even) {
-	  background-color: #f2f2f2;
+          background-color: #f2f2f2;
       }
     </style>
     <script>
@@ -26,20 +26,20 @@
       instructions["major"] = "Start off the 7th";
       instructions["practise"] = '<span onclick="clearPractiseItemsTable()">Clear</span>';
       var practiseItems = [
-	  ["Maj II-V-I closed LH",     "off 7", "off 3"],
-	  ["Maj II-V-I closed RH",     "off 7", "off 3"],
-	  ["Maj II-V-I forth",         "off 7", "off 3"],
-	  ["Min II-V-I closed LH",     "off 7", "off 3"],
-	  ["Min II-V-I closed RH",     "off 7", "off 3"],
-	  ["Min II-V-I forth",         "off 7", "off 3"],
-	  ["Dominant Cycle closed LH", "off 7", "off 3"],
-	  ["Dominant Cycle closed RH", "off 7", "off 3"],
-	  ["Dominant Cycle forth",     "off 7", "off 3"],
-	  ["Major Cycle closed LH",    "off 7", "off 3"],
-	  ["Major Cycle closed RH",    "off 7", "off 3"],
-	  ["Major Cycle forth",        "off 7", "off 3"],
-	  ["Arpeggio closed LH",       "off 7", "off 3"],
-	  ["Arpeggio closed RH",       "off 7", "off 3"],
+          ["Maj II-V-I closed LH",     "off 7", "off 3"],
+          ["Maj II-V-I closed RH",     "off 7", "off 3"],
+          ["Maj II-V-I forth",         "off 7", "off 3"],
+          ["Min II-V-I closed LH",     "off 7", "off 3"],
+          ["Min II-V-I closed RH",     "off 7", "off 3"],
+          ["Min II-V-I forth",         "off 7", "off 3"],
+          ["Dominant Cycle closed LH", "off 7", "off 3"],
+          ["Dominant Cycle closed RH", "off 7", "off 3"],
+          ["Dominant Cycle forth",     "off 7", "off 3"],
+          ["Major Cycle closed LH",    "off 7", "off 3"],
+          ["Major Cycle closed RH",    "off 7", "off 3"],
+          ["Major Cycle forth",        "off 7", "off 3"],
+          ["Arpeggio closed LH",       "off 7", "off 3"],
+          ["Arpeggio closed RH",       "off 7", "off 3"],
       ];
       var contents = new Map();
       contents["notes"] = `
@@ -155,133 +155,133 @@
           GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
           `;
       function shuffleArray(array) {
-	  for (let i = array.length - 1; i > 0; i--) {
+          for (let i = array.length - 1; i > 0; i--) {
               const j = Math.floor(Math.random() * (i + 1));
               [array[i], array[j]] = [array[j], array[i]];
-	  }
+          }
       }
       function formatAndVaryContent(line) {
-	  line = line + ""; // toString()
-	  line = line.replace(/7alt/g, '<sup>7alt</sup>');
-	  line = line.replace(/o7/g, '<sup>o7</sup>');
-	  if (Math.random() <= 0.5)
-	      line = line.replace(/m7/g, '-<sup>7</sup>');
-	  if (Math.random() <= 0.3333)
-	      line = line.replace(/Δ/g, 'M<sup>7</sup>');
-	  else if (Math.random() <= 0.3333)
-	      line = line.replace(/Δ/g, 'maj<sup>7</sup>');
-	  else
-	      line = line.replace(/Δ/g, '<sup>Δ</sup>');
-	  if (Math.random() <= 0.3333)
-	      line = line.replace(/ø7/g, 'm<sup>7♭5</sup>');
-	  else if (Math.random() <= 0.3333)
-	      line = line.replace(/ø7/g, '-<sup>7♭5</sup>');
-	  else
-	      line = line.replace(/ø7/g, '<sup>ø7</sup>');
-	  line = line.replace(/7($|[^<a♭♯])/g, '<sup>7</sup>$1');
-	  return line;
+          line = line + ""; // toString()
+          line = line.replace(/7alt/g, '<sup>7alt</sup>');
+          line = line.replace(/o7/g, '<sup>o7</sup>');
+          if (Math.random() <= 0.5)
+              line = line.replace(/m7/g, '-<sup>7</sup>');
+          if (Math.random() <= 0.3333)
+              line = line.replace(/Δ/g, 'M<sup>7</sup>');
+          else if (Math.random() <= 0.3333)
+              line = line.replace(/Δ/g, 'maj<sup>7</sup>');
+          else
+              line = line.replace(/Δ/g, '<sup>Δ</sup>');
+          if (Math.random() <= 0.3333)
+              line = line.replace(/ø7/g, 'm<sup>7♭5</sup>');
+          else if (Math.random() <= 0.3333)
+              line = line.replace(/ø7/g, '-<sup>7♭5</sup>');
+          else
+              line = line.replace(/ø7/g, '<sup>ø7</sup>');
+          line = line.replace(/7($|[^<a♭♯])/g, '<sup>7</sup>$1');
+          return line;
       }
       function highlightButton(button) {
-	  const buttonsTable = document.getElementById("buttons");
-	  for (const btn of buttonsTable.getElementsByTagName("td")) {
-	      btn.style.background = btn == button ? '#f2f2f2' : '#fff';
-	  }
+          const buttonsTable = document.getElementById("buttons");
+          for (const btn of buttonsTable.getElementsByTagName("td")) {
+              btn.style.background = btn == button ? '#f2f2f2' : '#fff';
+          }
       }
       function setContent(newContent) {
-	  document.getElementById("content").innerHTML = newContent;
-	  document.getElementById("practise").style.visibility = "hidden";
+          document.getElementById("content").innerHTML = newContent;
+          document.getElementById("practise").style.visibility = "hidden";
       }
       function setInstructions(what) {
-	  const instruc = instructions[what];
-	  document.getElementById("instructions").innerHTML =
-	      instruc
-	      ? ("<font color='#a00'>" + instruc + "</font>")
-	      : "";
+          const instruc = instructions[what];
+          document.getElementById("instructions").innerHTML =
+              instruc
+              ? ("<font color='#a00'>" + instruc + "</font>")
+              : "";
       }
       function changeContent(button, what, shuffle) {
-	  highlightButton(button);
-	  var content = contents[what];
-	  const contentArray = [...content.matchAll(/[^\n]+/g)];
-	  if (shuffle)
-	      shuffleArray(contentArray);
-	  var newContent = "";
+          highlightButton(button);
+          var content = contents[what];
+          const contentArray = [...content.matchAll(/[^\n]+/g)];
+          if (shuffle)
+              shuffleArray(contentArray);
+          var newContent = "";
           for (const line of contentArray) {
-	      newContent += "<tr>";
-	      const variedLine = formatAndVaryContent(line);
-	      for (const cell of variedLine.matchAll(/\S+/g))
-		  newContent += "<td><b>" + cell + "</b></td>";
-	      newContent += "</tr>";
-	  }
-	  setInstructions(what);
-	  setContent(newContent);
+              newContent += "<tr>";
+              const variedLine = formatAndVaryContent(line);
+              for (const cell of variedLine.matchAll(/\S+/g))
+                  newContent += "<td><b>" + cell + "</b></td>";
+              newContent += "</tr>";
+          }
+          setInstructions(what);
+          setContent(newContent);
       }
       function flashCardDrill(button) {
-	  highlightButton(button);
-	  var pitches = 'C D E F G A B';
-	  var chordTypes = 'Δ 7 m7 ø7 7alt o7';
-	  var items = [];
-	  for (const accidental of ['', '♯', '♭']) {
-	      for (const pitch of pitches.matchAll(/\S+/g)) {
-		  for (const chordType of chordTypes.matchAll(/\S+/g)) {
-		      items.push(pitch + accidental + chordType);
-		  }
-	      }
-	  }
-	  shuffleArray(items);
-	  var i = 0;
-	  var newContent = "";
-	  for (const item of items) {
-	      if ((i % 6) == 0) {
-		  if (i > 0)
-		      newContent += "</tr>";
-		  newContent += "<tr>";
-	      }
-	      newContent += "<td><b>" + formatAndVaryContent(item) + "</b></td>";
-	      i++;
-	  }
-	  setInstructions("flash-cards")
-	  setContent(newContent);
+          highlightButton(button);
+          var pitches = 'C D E F G A B';
+          var chordTypes = 'Δ 7 m7 ø7 7alt o7';
+          var items = [];
+          for (const accidental of ['', '♯', '♭']) {
+              for (const pitch of pitches.matchAll(/\S+/g)) {
+                  for (const chordType of chordTypes.matchAll(/\S+/g)) {
+                      items.push(pitch + accidental + chordType);
+                  }
+              }
+          }
+          shuffleArray(items);
+          var i = 0;
+          var newContent = "";
+          for (const item of items) {
+              if ((i % 6) == 0) {
+                  if (i > 0)
+                      newContent += "</tr>";
+                  newContent += "<tr>";
+              }
+              newContent += "<td><b>" + formatAndVaryContent(item) + "</b></td>";
+              i++;
+          }
+          setInstructions("flash-cards")
+          setContent(newContent);
       }
       function htmlToElement(html) {
-	  var template = document.createElement('template');
-	  template.innerHTML = html.trim();
-	  return template.content;
+          var template = document.createElement('template');
+          template.innerHTML = html.trim();
+          return template.content;
       }
       function clearPractiseItemsTable() {
-	  var practise = document.getElementById('practise');
-	  for (var input of practise.getElementsByTagName("input"))
-	      input.checked = false;
+          var practise = document.getElementById('practise');
+          for (var input of practise.getElementsByTagName("input"))
+              input.checked = false;
       }
       function makePractiseItemsTable(practiseItemsStr) {
-	  var practise = document.getElementById('practise');
-	  for (var [what, a, b] of practiseItemsStr) {
-	      var ida = what + a;
-	      var idb = what + b;
-	      practise.appendChild(htmlToElement('<tr><td>' + what + '</td><td><input type="checkbox" id="' + ida + '"><label for="' +ida + '">' + a +
-						 '</label></td><td><input type="checkbox" id="' + idb + '"><label for="' +idb + '">' + b + '</label></td></tr>'));
-	  }
+          var practise = document.getElementById('practise');
+          for (var [what, a, b] of practiseItemsStr) {
+              var ida = what + a;
+              var idb = what + b;
+              practise.appendChild(htmlToElement('<tr><td>' + what + '</td><td><input type="checkbox" id="' + ida + '"><label for="' +ida + '">' + a +
+                                                 '</label></td><td><input type="checkbox" id="' + idb + '"><label for="' +idb + '">' + b + '</label></td></tr>'));
+          }
       }
       function showPractiseItems(button) {
-	  highlightButton(button);
-	  setContent("");
-	  document.getElementById("practise").style.visibility = "visible";
-	  setInstructions('practise');
+          highlightButton(button);
+          setContent("");
+          document.getElementById("practise").style.visibility = "visible";
+          setInstructions('practise');
       }
       </script>
   </head>
   <body>
     <center>
       <table id="buttons">
-	<tr>
-	  <td id='practiseButton' onclick="showPractiseItems(this)">Practise</td>
-	  <td onclick="changeContent(this, 'notes', true)">Notes</td>
-	  <td onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
-	  <td onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
-	  <td onclick="changeContent(this, 'dominant')">Dom</td>
-	  <td onclick="changeContent(this, 'major')">Maj</td>
-	  <td onclick="changeContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
-	  <td onclick="flashCardDrill(this)">Flash Cards</td>
-	</tr>
+        <tr>
+          <td id='practiseButton' onclick="showPractiseItems(this)">Practise</td>
+          <td onclick="changeContent(this, 'notes', true)">Notes</td>
+          <td onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
+          <td onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
+          <td onclick="changeContent(this, 'dominant')">Dom</td>
+          <td onclick="changeContent(this, 'major')">Maj</td>
+          <td onclick="changeContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
+          <td onclick="flashCardDrill(this)">Flash Cards</td>
+        </tr>
       </table>
       <div id="instructions"></div>
       <table id="content"/>
