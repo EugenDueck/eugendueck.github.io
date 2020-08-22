@@ -7,11 +7,15 @@
     <style>
       #buttons td {
 	  border: 1px solid #aaa;
+	  cursor: pointer;
       }
       #content {
 	  width: 100%;
       }
       #content tr:nth-child(even) {
+	  background-color: #f2f2f2;
+      }
+      #practice tr:nth-child(even) {
 	  background-color: #f2f2f2;
       }
     </style>
@@ -20,119 +24,131 @@
       instructions["flash-cards"] = "Decide inversion (off the 7th or of the 3rd) ahead of time";
       instructions["dominant"] = "Start off the 7th";
       instructions["major"] = "Start off the 7th";
+      instructions["practice"] = '<span onclick="clearPracticeItemsTable()">Clear</span>';
+      var practiceItems = [
+	  ["Maj II-V-I closed",     "off 7", "off 3"],
+	  ["Maj II-V-I forth",      "off 7", "off 3"],
+	  ["Min II-V-I closed",     "off 7", "off 3"],
+	  ["Min II-V-I forth",      "off 7", "off 3"],
+	  ["Dominant Cycle closed", "off 7", "off 3"],
+	  ["Dominant Cycle forth",  "off 7", "off 3"],
+	  ["Major Cycle closed",    "off 7", "off 3"],
+	  ["Major Cycle forth",     "off 7", "off 3"],
+	  ["Arpeggio closed",       "off 7", "off 3"],
+      ];
       var contents = new Map();
       contents["notes"] = `
-B♯
-C
-C♯
-D♭
-D
-D♯
-E♭
-E
-F♭
-E♯
-F
-F♯
-G♭
-G
-G♯
-A♭
-A
-A♯
-B♭
-B
-C♭
-`;
+          B♯
+          C
+          C♯
+          D♭
+          D
+          D♯
+          E♭
+          E
+          F♭
+          E♯
+          F
+          F♯
+          G♭
+          G
+          G♯
+          A♭
+          A
+          A♯
+          B♭
+          B
+          C♭
+          `;
       contents["major-251"] = `
-Cm7   F7   B♭Δ
-C♯m7  F♯7  BΔ
-D♭m7  G♭7  BΔ
-Dm7   G7   CΔ
-D♯m7  G♯7  C♯Δ
-E♭m7  A♭7  D♭Δ
-Em7   A7   DΔ
-Fm7   B♭7  E♭Δ
-F♯m7  B7   EΔ
-G♭m7  B7   EΔ
-Gm7   C7   FΔ
-G♯m7  C♯7  F♯Δ
-A♭m7  D♭7  G♭Δ
-Am7   D7   GΔ
-A♯m7  D♯7  G♯Δ
-B♭m7  E♭7  A♭Δ
-Bm7   E7   AΔ
-`;
+          Cm7   F7   B♭Δ
+          C♯m7  F♯7  BΔ
+          D♭m7  G♭7  BΔ
+          Dm7   G7   CΔ
+          D♯m7  G♯7  C♯Δ
+          E♭m7  A♭7  D♭Δ
+          Em7   A7   DΔ
+          Fm7   B♭7  E♭Δ
+          F♯m7  B7   EΔ
+          G♭m7  B7   EΔ
+          Gm7   C7   FΔ
+          G♯m7  C♯7  F♯Δ
+          A♭m7  D♭7  G♭Δ
+          Am7   D7   GΔ
+          A♯m7  D♯7  G♯Δ
+          B♭m7  E♭7  A♭Δ
+          Bm7   E7   AΔ
+          `;
       contents["minor-251"] = `
-Cø7   F7alt   B♭m7
-C♯ø7  F♯7alt  Bm7
-D♭ø7  G♭7alt  Bm7
-Dø7   G7alt   Cm7
-D♯ø7  G♯7alt  C♯m7
-E♭ø7  A♭7alt  D♭m7
-Eø7   A7alt   Dm7
-Fø7   B♭7alt  E♭m7
-F♯ø7  B7alt   Em7
-G♭ø7  B7alt   Em7
-Gø7   C7alt   Fm7
-G♯ø7  C♯7alt  F♯m7
-A♭ø7  D♭7alt  G♭m7
-Aø7   D7alt   Gm7
-A♯ø7  D♯7alt  G♯m7
-B♭ø7  E♭7alt  A♭m7
-Bø7   E7alt   Am7
-`;
+          Cø7   F7alt   B♭m7
+          C♯ø7  F♯7alt  Bm7
+          D♭ø7  G♭7alt  Bm7
+          Dø7   G7alt   Cm7
+          D♯ø7  G♯7alt  C♯m7
+          E♭ø7  A♭7alt  D♭m7
+          Eø7   A7alt   Dm7
+          Fø7   B♭7alt  E♭m7
+          F♯ø7  B7alt   Em7
+          G♭ø7  B7alt   Em7
+          Gø7   C7alt   Fm7
+          G♯ø7  C♯7alt  F♯m7
+          A♭ø7  D♭7alt  G♭m7
+          Aø7   D7alt   Gm7
+          A♯ø7  D♯7alt  G♯m7
+          B♭ø7  E♭7alt  A♭m7
+          Bø7   E7alt   Am7
+          `;
       contents["dominant"] = `
-E7  A7
-D7  G7
-C7  F7
-B♭7 E♭7
-A♭7 D♭7
-F♯7 B7
-E7 
+          E7  A7
+          D7  G7
+          C7  F7
+          B♭7 E♭7
+          A♭7 D♭7
+          F♯7 B7
+          E7
 
-E♭7  A♭7
-C♯7  F♯7
-B7  E7
-A7  D7
-G7  C7
-F7  B♭7
-E♭7
-`;
+          E♭7  A♭7
+          C♯7  F♯7
+          B7  E7
+          A7  D7
+          G7  C7
+          F7  B♭7
+          E♭7
+          `;
       contents["major"] = `
-EΔ  AΔ
-DΔ  GΔ
-CΔ  FΔ
-B♭Δ E♭Δ
-A♭Δ D♭Δ
-F♯Δ BΔ
-EΔ
+          EΔ  AΔ
+          DΔ  GΔ
+          CΔ  FΔ
+          B♭Δ E♭Δ
+          A♭Δ D♭Δ
+          F♯Δ BΔ
+          EΔ
 
-E♭Δ  A♭Δ
-C♯Δ  F♯Δ
-BΔ  EΔ
-AΔ  DΔ
-GΔ  CΔ
-FΔ  B♭Δ
-E♭Δ
-`;
+          E♭Δ  A♭Δ
+          C♯Δ  F♯Δ
+          BΔ  EΔ
+          AΔ  DΔ
+          GΔ  CΔ
+          FΔ  B♭Δ
+          E♭Δ
+          `;
       contents["diminished-tritone-sub"] = `
-CΔ  C♯o7 Dm7  D♯o7 Em7  E♭7  Dm7  D♭7 CΔ
-FΔ  F♯o7 Gm7  G♯o7 Am7  A♭7  Gm7  G♭7 FΔ
-B♭Δ Bo7  Cm7  C♯o7 Dm7  D♭7  Cm7  B7  B♭Δ
+          CΔ  C♯o7 Dm7  D♯o7 Em7  E♭7  Dm7  D♭7 CΔ
+          FΔ  F♯o7 Gm7  G♯o7 Am7  A♭7  Gm7  G♭7 FΔ
+          B♭Δ Bo7  Cm7  C♯o7 Dm7  D♭7  Cm7  B7  B♭Δ
 
-E♭Δ Eo7  Fm7  F♯o7 Gm7  G♭7  Fm7  E7  E♭Δ
-A♭Δ Ao7  B♭m7 Bo7  Cm7  B7  B♭m7 A7 A♭Δ
-D♭Δ Do7  E♭m7 Eo7  Fm7  E7  E♭m7 D7 D♭Δ
+          E♭Δ Eo7  Fm7  F♯o7 Gm7  G♭7  Fm7  E7  E♭Δ
+          A♭Δ Ao7  B♭m7 Bo7  Cm7  B7  B♭m7 A7 A♭Δ
+          D♭Δ Do7  E♭m7 Eo7  Fm7  E7  E♭m7 D7 D♭Δ
 
-G♭Δ Go7  A♭m7 Ao7  B♭m7 A7  A♭m7 G7  G♭Δ
-BΔ  Co7  C♯m7 Do7  D♯m7 D7  C♯m7 C7  BΔ
-EΔ  Fo7  F♯m7 Go7  G♯m7 G7  F♯m7 F7  EΔ
+          G♭Δ Go7  A♭m7 Ao7  B♭m7 A7  A♭m7 G7  G♭Δ
+          BΔ  Co7  C♯m7 Do7  D♯m7 D7  C♯m7 C7  BΔ
+          EΔ  Fo7  F♯m7 Go7  G♯m7 G7  F♯m7 F7  EΔ
 
-AΔ  A♯o7 Bm7  Co7  C♯m7 C7  Bm7  B♭7 AΔ
-DΔ  D♯o7 Em7  Fo7  F♯m7 F7  Em7  E♭7 DΔ
-GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
-`;
+          AΔ  A♯o7 Bm7  Co7  C♯m7 C7  Bm7  B♭7 AΔ
+          DΔ  D♯o7 Em7  Fo7  F♯m7 F7  Em7  E♭7 DΔ
+          GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
+          `;
       function shuffleArray(array) {
 	  for (let i = array.length - 1; i > 0; i--) {
               const j = Math.floor(Math.random() * (i + 1));
@@ -168,6 +184,7 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
       }
       function setContent(newContent) {
 	  document.getElementById("content").innerHTML = newContent;
+	  document.getElementById("practice").style.visibility = "hidden";
       }
       function setInstructions(what) {
 	  const instruc = instructions[what];
@@ -220,12 +237,38 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	  setInstructions("flash-cards")
 	  setContent(newContent);
       }
+      function htmlToElement(html) {
+	  var template = document.createElement('template');
+	  template.innerHTML = html.trim();
+	  return template.content;
+      }
+      function clearPracticeItemsTable() {
+	  var practice = document.getElementById('practice');
+	  for (var input of practice.getElementsByTagName("input"))
+	      input.checked = false;
+      }
+      function makePracticeItemsTable(practiceItemsStr) {
+	  var practice = document.getElementById('practice');
+	  for (var [what, a, b] of practiceItemsStr) {
+	      var ida = what + a;
+	      var idb = what + b;
+	      practice.appendChild(htmlToElement('<tr><td>' + what + '</td><td><input type="checkbox" id="' + ida + '"><label for="' +ida + '">' + a +
+						 '</label></td><td><input type="checkbox" id="' + idb + '"><label for="' +idb + '">' + b + '</label></td></tr>'));
+	  }
+      }
+      function showPracticeItems(button) {
+	  highlightButton(button);
+	  setContent("");
+	  document.getElementById("practice").style.visibility = "visible";
+	  setInstructions('practice');
+      }
       </script>
   </head>
   <body>
     <center>
       <table id="buttons">
 	<tr>
+	  <td onclick="showPracticeItems(this)">Practice</td>
 	  <td onclick="changeContent(this, 'notes', true)">Notes</td>
 	  <td onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
 	  <td onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
@@ -237,6 +280,8 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
       </table>
       <div id="instructions"></div>
       <table id="content"/>
+      <table id="practice" style="visibility:hidden"/>
+      <script>makePracticeItemsTable(practiceItems);</script>
     </center>
   </body>
 </html>
