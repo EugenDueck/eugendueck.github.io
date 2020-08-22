@@ -24,22 +24,22 @@
       instructions["flash-cards"] = "Decide inversion (off the 7th or of the 3rd) ahead of time";
       instructions["dominant"] = "Start off the 7th";
       instructions["major"] = "Start off the 7th";
-      instructions["practise"] = '<span onclick="clearPractiseItemsTable()">Clear</span>';
+      instructions["practise"] = '<span onclick="clearPractiseItemsTable()"><font color="#555">Clear</font></span> <span onclick="markChecked(\'#A00\')"><font color="#A00">Red</font></span> <span onclick="markChecked(\'#0A0\')"><font color="#0A0">Green</font></span> <span onclick="markChecked(\'#00A\')"><font color="#00A">Blue</font></span>';
       var practiseItems = [
-          ["Maj II-V-I closed LH",     "off 7", "off 3"],
-          ["Maj II-V-I closed RH",     "off 7", "off 3"],
-          ["Maj II-V-I forth",         "off 7", "off 3"],
-          ["Min II-V-I closed LH",     "off 7", "off 3"],
-          ["Min II-V-I closed RH",     "off 7", "off 3"],
-          ["Min II-V-I forth",         "off 7", "off 3"],
-          ["Dominant Cycle closed LH", "off 7", "off 3"],
-          ["Dominant Cycle closed RH", "off 7", "off 3"],
-          ["Dominant Cycle forth",     "off 7", "off 3"],
-          ["Major Cycle closed LH",    "off 7", "off 3"],
-          ["Major Cycle closed RH",    "off 7", "off 3"],
-          ["Major Cycle forth",        "off 7", "off 3"],
-          ["Arpeggio closed LH",       "off 7", "off 3"],
-          ["Arpeggio closed RH",       "off 7", "off 3"],
+          ["Maj II-V-I closed LH",     "off 7",  "off 3",    "random"],
+          ["Maj II-V-I closed RH",     "off 7",  "off 3",    "random"],
+          ["Maj II-V-I forth",         "off 7",  "off 3",    "random"],
+          ["Min II-V-I closed LH",     "off 7",  "off 3",    "random"],
+          ["Min II-V-I closed RH",     "off 7",  "off 3",    "random"],
+          ["Min II-V-I forth",         "off 7",  "off 3",    "random"],
+          ["Dominant Cycle closed LH", "E A ..", "E♭ A♭ ..", "random"],
+          ["Dominant Cycle closed RH", "E A ..", "E♭ A♭ ..", "random"],
+          ["Dominant Cycle forth",     "E A ..", "E♭ A♭ ..", "random"],
+          ["Major Cycle closed LH",    "off 7",  "off 3",    "random"],
+          ["Major Cycle closed RH",    "off 7",  "off 3",    "random"],
+          ["Major Cycle forth",        "off 7",  "off 3",    "random"],
+          ["Arpeggio closed LH",       "off 7",  "off 3",    "random"],
+          ["Arpeggio closed RH",       "off 7",  "off 3",    "random"],
       ];
       var contents = new Map();
       contents["notes"] = `
@@ -249,16 +249,29 @@
       }
       function clearPractiseItemsTable() {
           var practise = document.getElementById('practise');
-          for (var input of practise.getElementsByTagName("input"))
+          for (var input of practise.getElementsByTagName("input")) {
               input.checked = false;
+	      input.nextSibling.style.color = "#000";
+	  }
+      }
+      function markChecked(color) {
+          var practise = document.getElementById('practise');
+          for (var input of practise.getElementsByTagName("input")) {
+              if (input.checked) {
+		  input.checked = false;
+		  input.nextSibling.style.color = color;
+	      }
+	  }
       }
       function makePractiseItemsTable(practiseItemsStr) {
           var practise = document.getElementById('practise');
-          for (var [what, a, b] of practiseItemsStr) {
+          for (var [what, a, b, c] of practiseItemsStr) {
               var ida = what + a;
               var idb = what + b;
+              var idc = what + c;
               practise.appendChild(htmlToElement('<tr><td>' + what + '</td><td><input type="checkbox" id="' + ida + '"><label for="' +ida + '">' + a +
-                                                 '</label></td><td><input type="checkbox" id="' + idb + '"><label for="' +idb + '">' + b + '</label></td></tr>'));
+                                                 '</label></td><td><input type="checkbox" id="' + idb + '"><label for="' +idb + '">' + b +
+                                                 '</label></td><td><input type="checkbox" id="' + idc + '"><label for="' +idc + '">' + c + '</label></td></tr>'));
           }
       }
       function showPractiseItems(button) {
