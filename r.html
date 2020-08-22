@@ -14,17 +14,12 @@
       #content tr:nth-child(even) {
 	  background-color: #f2f2f2;
       }
-/*      #content td {
-	  width: 33.333%;
-      }*/
     </style>
     <script>
       var instructions = new Map();
       instructions["flash-cards"] = "Decide inversion (off the 7th or of the 3rd) ahead of time";
-      instructions["dominant-7"] = "Start off the 7th";
-      instructions["dominant-3"] = "Start off the 3th";
-      instructions["major-7"] = "Start off the 7th";
-      instructions["major-3"] = "Start off the 3th";
+      instructions["dominant"] = "Start off the 7th";
+      instructions["major"] = "Start off the 7th";
       var contents = new Map();
       contents["notes"] = `
 B♯
@@ -87,13 +82,14 @@ A♯ø7  D♯7alt  G♯m7
 B♭ø7  E♭7alt  A♭m7
 Bø7   E7alt   Am7
 `;
-      contents["dominant-7"] = `
+      contents["dominant"] = `
 E7  A7
 D7  G7
 C7  F7
 B♭7 E♭7
 A♭7 D♭7
 F♯7 B7
+E7 
 
 E♭7  A♭7
 C♯7  F♯7
@@ -101,29 +97,16 @@ B7  E7
 A7  D7
 G7  C7
 F7  B♭7
+E♭7
 `;
-      contents["dominant-3"] = `
-A7  D7
-G7  C7
-F7  B♭7
-E♭7  A♭7
-C♯7  F♯7
-B7  E7
-
-A♭7 D♭7
-F♯7 B7
-E7  A7
-D7  G7
-C7  F7
-B♭7 E♭7
-`;
-      contents["major-7"] = `
+      contents["major"] = `
 EΔ  AΔ
 DΔ  GΔ
 CΔ  FΔ
 B♭Δ E♭Δ
 A♭Δ D♭Δ
 F♯Δ BΔ
+EΔ
 
 E♭Δ  A♭Δ
 C♯Δ  F♯Δ
@@ -131,21 +114,7 @@ BΔ  EΔ
 AΔ  DΔ
 GΔ  CΔ
 FΔ  B♭Δ
-`;
-      contents["major-3"] = `
-AΔ  DΔ
-GΔ  CΔ
-FΔ  B♭Δ
-E♭Δ  A♭Δ
-C♯Δ  F♯Δ
-BΔ  EΔ
-
-A♭Δ D♭Δ
-F♯Δ BΔ
-EΔ  AΔ
-DΔ  GΔ
-CΔ  FΔ
-B♭Δ E♭Δ
+E♭Δ
 `;
       contents["diminished-tritone-sub"] = `
 CΔ  C♯o7 Dm7  D♯o7 Em7  E♭7  Dm7  D♭7 CΔ
@@ -260,10 +229,8 @@ GΔ  G♯o7 Am7  A♯o7 Bm7  B♭7 Am7  A♭7 GΔ
 	  <td onclick="changeContent(this, 'notes', true)">Notes</td>
 	  <td onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
 	  <td onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
-	  <td onclick="changeContent(this, 'dominant-7')">Dom (7)</td>
-	  <td onclick="changeContent(this, 'dominant-3')">Dom (3)</td>
-	  <td onclick="changeContent(this, 'major-7')">Maj (7)</td>
-	  <td onclick="changeContent(this, 'major-3')">Maj (3)</td>
+	  <td onclick="changeContent(this, 'dominant')">Dom</td>
+	  <td onclick="changeContent(this, 'major')">Maj</td>
 	  <td onclick="changeContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
 	  <td onclick="flashCardDrill(this)">Flash Cards</td>
 	</tr>
