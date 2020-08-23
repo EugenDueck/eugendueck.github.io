@@ -12,6 +12,9 @@
       #content {
           width: 100%;
       }
+      .marked {
+          color: #a00;
+      }
       #content tr:nth-child(even) {
           background-color: #f2f2f2;
       }
@@ -199,6 +202,9 @@
               ? ("<font color='#a00'>" + instruc + "</font>")
               : "";
       }
+      function toggleMarked(what) {
+	  what.classList.toggle('marked');
+      }
       function changeContent(button, what, shuffle) {
           highlightButton(button);
           var content = contents[what];
@@ -206,8 +212,11 @@
           if (shuffle)
               shuffleArray(contentArray);
           var newContent = "";
-          for (const line of contentArray) {
-              newContent += "<tr>";
+          for (var line of contentArray) {
+	      line += "";
+	      if (line.trim() === "") // skip empty lines
+		  continue;
+              newContent += "<tr onclick='toggleMarked(this)'>";
               const variedLine = formatAndVaryContent(line);
               for (const cell of variedLine.matchAll(/\S+/g))
                   newContent += "<td><b>" + cell + "</b></td>";
