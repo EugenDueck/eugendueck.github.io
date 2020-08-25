@@ -31,16 +31,16 @@
       var practiseItems = [
           ["Maj II-V-I closed LH",       "off 7",  "off 3",    "random"],
           ["Maj II-V-I closed RH",       "off 7",  "off 3",    "random"],
-          ["Maj II-V-I forth",           "off 7",  "off 3",    "random"],
+          ["Maj II-V-I fourth",          "off 7",  "off 3",    "random"],
           ["Min II-V-I closed LH",       "off 7",  "off 3",    "random"],
           ["Min II-V-I closed RH",       "off 7",  "off 3",    "random"],
-          ["Min II-V-I forth",           "off 7",  "off 3",    "random"],
+          ["Min II-V-I fourth",          "off 7",  "off 3",    "random"],
           ["Dominant Cycle closed LH",   "E A ..", "E♭ A♭ ..", "random"],
           ["Dominant Cycle closed RH",   "E A ..", "E♭ A♭ ..", "random"],
-          ["Dominant Cycle forth",       "E A ..", "E♭ A♭ ..", "random"],
+          ["Dominant Cycle fourth",      "E A ..", "E♭ A♭ ..", "random"],
           ["Major Cycle closed LH",      "off 7",  "off 3",    "random"],
           ["Major Cycle closed RH",      "off 7",  "off 3",    "random"],
-          ["Major Cycle forth",          "off 7",  "off 3",    "random"],
+          ["Major Cycle fourth",         "off 7",  "off 3",    "random"],
           ["Arpeggio closed alt hands",  "off 7",  "off 3",    "random"],
           ["Arpeggio closed LH",         "off 7",  "off 3",    "random"],
           ["Arpeggio closed RH",         "off 7",  "off 3",    "random"],
@@ -216,10 +216,10 @@
 	      line += "";
 	      if (line.trim() === "") // skip empty lines
 		  continue;
-              newContent += "<tr onclick='toggleMarked(this)'>";
+              newContent += "<tr>";
               const variedLine = formatAndVaryContent(line);
               for (const cell of variedLine.matchAll(/\S+/g))
-                  newContent += "<td><b>" + cell + "</b></td>";
+                  newContent += "<td onclick='toggleMarked(this)'><b>" + cell + "</b></td>";
               newContent += "</tr>";
           }
           setInstructions(what);
