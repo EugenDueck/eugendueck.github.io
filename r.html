@@ -35,15 +35,16 @@
           ["Min II-V-I closed LH",       "off 7",  "off 3",    "random"],
           ["Min II-V-I closed RH",       "off 7",  "off 3",    "random"],
           ["Min II-V-I fourth",          "off 7",  "off 3",    "random"],
-          ["Dominant Cycle closed LH",   "E A ..", "E♭ A♭ ..", "random"],
-          ["Dominant Cycle closed RH",   "E A ..", "E♭ A♭ ..", "random"],
-          ["Dominant Cycle fourth",      "E A ..", "E♭ A♭ ..", "random"],
-          ["Major Cycle closed LH",      "off 7",  "off 3",    "random"],
-          ["Major Cycle closed RH",      "off 7",  "off 3",    "random"],
-          ["Major Cycle fourth",         "off 7",  "off 3",    "random"],
-          ["Arpeggio closed alt hands",  "off 7",  "off 3",    "random"],
-          ["Arpeggio closed LH",         "off 7",  "off 3",    "random"],
-          ["Arpeggio closed RH",         "off 7",  "off 3",    "random"],
+          ["Arpeggio closed alt hands",  "off 7",  "off 3"             ],
+          ["Arpeggio closed RH",         "off 7",  "off 3"             ],
+          ["Arpeggio closed LH",         "off 7",  "off 3"             ],
+          ["Dominant Cycle closed LH",   "E A ..", "E♭ A♭ .."          ],
+          ["Dominant Cycle closed RH",   "E A ..", "E♭ A♭ .."          ],
+          ["Dominant Cycle fourth",      "E A ..", "E♭ A♭ .."          ],
+          ["Major Cycle closed LH",      "E A ..", "E♭ A♭ .."          ],
+          ["Major Cycle closed RH",      "E A ..", "E♭ A♭ .."          ],
+          ["Major Cycle fourth",         "E A ..", "E♭ A♭ .."          ],
+          ["Dimished / Tritone Sub",     "off 7",  "off 3"             ],
       ];
       var contents = new Map();
       contents["notes"] = `
@@ -279,9 +280,13 @@
               var ida = what + a;
               var idb = what + b;
               var idc = what + c;
-              practise.appendChild(htmlToElement('<tr><td onclick="toggleMarked(this)">' + what + '</td><td><input type="checkbox" id="' + ida + '"><label for="' +ida + '">' + a +
-                                                 '</label></td><td><input type="checkbox" id="' + idb + '"><label for="' +idb + '">' + b +
-                                                 '</label></td><td><input type="checkbox" id="' + idc + '"><label for="' +idc + '">' + c + '</label></td></tr>'));
+	      var html = '<tr><td onclick="toggleMarked(this)">' + what + '</td><td><input type="checkbox" id="' + ida + '"><label for="' + ida + '">' + a + '</label></td>';
+	      if (b)
+		  html += '<td><input type="checkbox" id="' + idb + '"><label for="' + idb + '">' + b + '</label></td>';
+	      if (c)
+		  html += '<td><input type="checkbox" id="' + idc + '"><label for="' + idc + '">' + c + '</label></td>';
+	      html += '</tr>';
+              practise.appendChild(htmlToElement(html));
           }
       }
       function showPractiseItems(button) {
