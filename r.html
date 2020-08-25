@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Jazz Practise Randomizer</title>
     <style>
+      #instructions, td, input, label {
+          cursor: pointer;
+      }
       #buttons td {
           border: 1px solid #aaa;
           cursor: pointer;
@@ -29,24 +32,24 @@
       instructions["major"] = "Start off the 7th";
       instructions["practise"] = '<span onclick="clearPractiseItemsTable()"><font color="#555">Clear</font></span> <span onclick="markChecked(\'#A00\')"><font color="#A00">Red</font></span> <span onclick="markChecked(\'#0A0\')"><font color="#0A0">Green</font></span> <span onclick="markChecked(\'#00A\')"><font color="#00A">Blue</font></span>';
       var practiseItems = [
-          ["Maj II-V-I LH",                 "off 7",  "off 3",    "random"],
-          ["Maj II-V-I RH",                 "off 7",  "off 3",    "random"],
-          ["Maj II-V-I fourth",             "off 7",  "off 3",    "random"],
-          ["Arpeggio alt hands",            "off 7",  "off 3"             ],
-          ["Arpeggio RH",                   "off 7",  "off 3"             ],
-          ["Arpeggio LH",                   "off 7",  "off 3"             ],
-          ["Min II-V-I LH",                 "off 7",  "off 3",    "random"],
-          ["Min II-V-I RH",                 "off 7",  "off 3",    "random"],
-          ["Min II-V-I fourth",             "off 7",  "off 3",    "random"],
-          ["Dominant Cycle LH",             "E A ..", "E♭ A♭ ..",  "random"],
-          ["Dominant Cycle RH",             "E A ..", "E♭ A♭ ..",  "random"],
-          ["Dominant Cycle fourth",         "E A ..", "E♭ A♭ ..",  "random"],
-          ["Major Cycle LH",                "E A ..", "E♭ A♭ ..",  "random"],
-          ["Major Cycle RH",                "E A ..", "E♭ A♭ ..",  "random"],
-          ["Major Cycle fourth",            "E A ..", "E♭ A♭ ..",  "random"],
-          ["Dimished / Tritone Sub LH",     "off 7",  "off 3"             ],
-          ["Dimished / Tritone Sub RH",     "off 7",  "off 3"             ],
-          ["Dimished / Tritone Sub fourth", "off 7",  "off 3"             ],
+          ["Maj II-V-I LH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Maj II-V-I RH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Maj II-V-I fourth",             "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Arpeggio alt hands",            "off 7",  "off 3"                     ],
+          ["Arpeggio RH",                   "off 7",  "off 3"                     ],
+          ["Arpeggio LH",                   "off 7",  "off 3"                     ],
+          ["Min II-V-I LH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Min II-V-I RH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Min II-V-I fourth",             "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Dominant LH",                   "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Dominant RH",                   "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Dominant fourth",               "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Major LH",                      "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Major RH",                      "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Major fourth",                  "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Diminished / Tritone Sub LH",     "off 7",  "off 3"                   ],
+          ["Diminished / Tritone Sub RH",     "off 7",  "off 3"                   ],
+          ["Diminished / Tritone Sub fourth", "off 7",  "off 3"                   ],
       ];
       var contents = new Map();
       contents["notes"] = `
@@ -262,14 +265,14 @@
       }
       function clearPractiseItemsTable() {
           var practise = document.getElementById('practise');
-          for (var input of practise.getElementsByTagName("input")) {
+          for (const input of practise.getElementsByTagName("input")) {
               input.checked = false;
 	      input.nextSibling.style.color = "#000";
 	  }
       }
       function markChecked(color) {
           var practise = document.getElementById('practise');
-          for (var input of practise.getElementsByTagName("input")) {
+          for (const input of practise.getElementsByTagName("input")) {
               if (input.checked) {
 		  input.checked = false;
 		  input.nextSibling.style.color = color;
@@ -278,15 +281,15 @@
       }
       function makePractiseItemsTable(practiseItemsStr) {
           var practise = document.getElementById('practise');
-          for (var [what, a, b, c] of practiseItemsStr) {
-              var ida = what + a;
-              var idb = what + b;
-              var idc = what + c;
-	      var html = '<tr><td onclick="toggleMarked(this)">' + what + '</td><td><input type="checkbox" id="' + ida + '"><label for="' + ida + '">' + a + '</label></td>';
-	      if (b)
-		  html += '<td><input type="checkbox" id="' + idb + '"><label for="' + idb + '">' + b + '</label></td>';
-	      if (c)
-		  html += '<td><input type="checkbox" id="' + idc + '"><label for="' + idc + '">' + c + '</label></td>';
+          for (const [what, ...items] of practiseItemsStr) {
+	      
+	      var html = '<tr><td onclick="toggleMarked(this)">' + what + '</td>';
+	      for (const item of items) {
+		  if (!item)
+		      continue;
+		  var id = what + item;
+		  html += '<td><input type="checkbox" id="' + id + '"><label for="' + id + '">' + item + '</label></td>';
+	      }
 	      html += '</tr>';
               practise.appendChild(htmlToElement(html));
           }
