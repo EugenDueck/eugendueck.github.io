@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Jazz Practise Randomizer</title>
     <style>
-      #instructions, td, input, label {
+      span[onclick], #practise td, #practise input, #practise label {
           cursor: pointer;
       }
       #buttons td {
@@ -24,32 +24,49 @@
       #practise tr:nth-child(even) {
           background-color: #f2f2f2;
       }
+      #voicings table {
+          border-collapse: collapse;
+          float: left;
+          margin: 20px;
+      }
+      #voicings th, #voicings tr:last-child {
+          border-bottom: solid 1px;
+      }
+      #voicings tr:nth-child(2) th:nth-child(1), #voicings td:nth-child(1) {
+          border-left: solid 1px;
+      }
+      #voicings th:nth-child(even), #voicings td:nth-child(even) {
+          background-color: #f2f2f2;
+          border-right: solid 1px;
+      }
     </style>
     <script>
       var instructions = new Map();
+      instructions["voicings"] = "Voicing Formulas";
       instructions["flash-cards"] = "Decide inversion (off the 7th or of the 3rd) ahead of time";
       instructions["dominant"] = "Start off the 7th";
       instructions["major"] = "Start off the 7th";
       instructions["practise"] = '<span onclick="clearPractiseItemsTable()"><font color="#555">Clear</font></span> <span onclick="markChecked(\'#A00\')"><font color="#A00">Red</font></span> <span onclick="markChecked(\'#0A0\')"><font color="#0A0">Green</font></span> <span onclick="markChecked(\'#00A\')"><font color="#00A">Blue</font></span>';
       var practiseItems = [
-          ["Maj II-V-I LH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
-          ["Maj II-V-I RH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
-          ["Maj II-V-I fourth",             "off 7",  "off 3",    "rnd 7", "rnd 3"],
-          ["Arpeggio alt hands",            "off 7",  "off 3"                     ],
-          ["Arpeggio RH",                   "off 7",  "off 3"                     ],
-          ["Arpeggio LH",                   "off 7",  "off 3"                     ],
-          ["Min II-V-I LH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
-          ["Min II-V-I RH",                 "off 7",  "off 3",    "rnd 7", "rnd 3"],
-          ["Min II-V-I fourth",             "off 7",  "off 3",    "rnd 7", "rnd 3"],
-          ["Dominant LH",                   "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
-          ["Dominant RH",                   "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
-          ["Dominant fourth",               "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
-          ["Major LH",                      "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
-          ["Major RH",                      "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
-          ["Major fourth",                  "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
-          ["Diminished / Tritone Sub LH",     "off 7",  "off 3"                   ],
-          ["Diminished / Tritone Sub RH",     "off 7",  "off 3"                   ],
-          ["Diminished / Tritone Sub fourth", "off 7",  "off 3"                   ],
+          ["Maj II-V-I LH",                   "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Maj II-V-I RH",                   "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Maj II-V-I fourth",               "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Arpeggio alt hands",              "off 7",  "off 3"                     ],
+          ["Arpeggio RH",                     "off 7",  "off 3"                     ],
+          ["Arpeggio LH",                     "off 7",  "off 3"                     ],
+          //          ["Arpeggiate Song",                 "up-n-down"                           ],
+          ["Min II-V-I LH",                   "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Min II-V-I RH",                   "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Min II-V-I fourth",               "off 7",  "off 3",    "rnd 7", "rnd 3"],
+          ["Dominant LH",                     "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Dominant RH",                     "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Dominant fourth",                 "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Major LH",                        "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Major RH",                        "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Major fourth",                    "E A ..", "E♭ A♭ ..", "rnd 7", "rnd 3"],
+          ["Diminished / Tritone Sub LH",     "off 7",  "off 3"                    ],
+          ["Diminished / Tritone Sub RH",     "off 7",  "off 3"                    ],
+          ["Diminished / Tritone Sub fourth", "off 7",  "off 3"                    ],
       ];
       var contents = new Map();
       contents["notes"] = `
@@ -199,7 +216,8 @@
       }
       function setContent(newContent) {
           document.getElementById("content").innerHTML = newContent;
-          document.getElementById("practise").style.visibility = "hidden";
+          document.getElementById("practise").style.display = "none";
+          document.getElementById("voicings").style.display = "none";
       }
       function setInstructions(what) {
           const instruc = instructions[what];
@@ -209,9 +227,10 @@
               : "";
       }
       function toggleMarked(what) {
-	  what.classList.toggle('marked');
+	      what.classList.toggle('marked');
       }
       function changeContent(button, what, shuffle) {
+          window.location.hash = what;
           highlightButton(button);
           var content = contents[what];
           const contentArray = [...content.matchAll(/[^\n]+/g)];
@@ -219,9 +238,9 @@
               shuffleArray(contentArray);
           var newContent = "";
           for (var line of contentArray) {
-	      line += "";
-	      if (line.trim() === "") // skip empty lines
-		  continue;
+	          line += "";
+	          if (line.trim() === "") // skip empty lines
+		          continue;
               newContent += "<tr>";
               const variedLine = formatAndVaryContent(line);
               for (const cell of variedLine.matchAll(/\S+/g))
@@ -232,6 +251,7 @@
           setContent(newContent);
       }
       function flashCardDrill(button) {
+          window.location.hash = "flash-cards";
           highlightButton(button);
           var pitches = 'C D E F G A B';
           var chordTypes = 'Δ 7 m7 ø7 7alt o7';
@@ -267,38 +287,65 @@
           var practise = document.getElementById('practise');
           for (const input of practise.getElementsByTagName("input")) {
               input.checked = false;
-	      input.nextSibling.style.color = "#000";
-	  }
+	          input.nextSibling.style.color = "#000";
+	      }
       }
       function markChecked(color) {
           var practise = document.getElementById('practise');
           for (const input of practise.getElementsByTagName("input")) {
               if (input.checked) {
-		  input.checked = false;
-		  input.nextSibling.style.color = color;
+		          input.checked = false;
+		          input.nextSibling.style.color = color;
+	          }
 	      }
-	  }
       }
       function makePractiseItemsTable(practiseItemsStr) {
           var practise = document.getElementById('practise');
           for (const [what, ...items] of practiseItemsStr) {
-	      
-	      var html = '<tr><td onclick="toggleMarked(this)">' + what + '</td>';
-	      for (const item of items) {
-		  if (!item)
-		      continue;
-		  var id = what + item;
-		  html += '<td><input type="checkbox" id="' + id + '"><label for="' + id + '">' + item + '</label></td>';
-	      }
-	      html += '</tr>';
+	          
+	          var html = '<tr><td onclick="toggleMarked(this)">' + what + '</td>';
+	          for (const item of items) {
+		          if (!item)
+		              continue;
+		          var id = what + item;
+		          html += '<td><input type="checkbox" id="' + id + '"><label for="' + id + '">' + item + '</label></td>';
+	          }
+	          html += '</tr>';
               practise.appendChild(htmlToElement(html));
           }
       }
       function showPractiseItems(button) {
+          window.location.hash = "practise";
           highlightButton(button);
           setContent("");
-          document.getElementById("practise").style.visibility = "visible";
+          document.getElementById("practise").style.display = "block";
           setInstructions('practise');
+      }
+      function showVoicings(button) {
+          window.location.hash = "voicings";
+          highlightButton(button);
+          setContent("");
+          document.getElementById("voicings").style.display = "block";
+          setInstructions('voicings');
+      }
+      function init() {
+          makePractiseItemsTable(practiseItems);
+          setContent("");
+          var hash = window.location.hash ? window.location.hash.substring(1) : "voicings";
+          var button = document.getElementById(hash + "-button");
+          switch (hash) {
+          case "practise":
+              showPractiseItems(button);
+              break;
+          case "voicings":
+              showVoicings(button);
+              break;
+          case "flash-cards":
+              flashCardDrill(button);
+              break;
+          default:
+              changeContent(button, hash);
+          }
       }
       </script>
   </head>
@@ -306,20 +353,286 @@
     <center>
       <table id="buttons">
         <tr>
-          <td id='practiseButton' onclick="showPractiseItems(this)">Practise</td>
-          <td onclick="changeContent(this, 'notes', true)">Notes</td>
-          <td onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
-          <td onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
-          <td onclick="changeContent(this, 'dominant')">Dom</td>
-          <td onclick="changeContent(this, 'major')">Maj</td>
-          <td onclick="changeContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
-          <td onclick="flashCardDrill(this)">Flash Cards</td>
+          <td id='practise-button' onclick="showPractiseItems(this)">Practise</td>
+          <td id='voicings-button' onclick="showVoicings(this)">Voicings</td>
+          <td id='notes-button' onclick="changeContent(this, 'notes', true)">Notes</td>
+          <td id='major-251-button' onclick="changeContent(this, 'major-251', true)">Maj II-V-I</td>
+          <td id='minor-251-button' onclick="changeContent(this, 'minor-251', true)">Min II-V-I</td>
+          <td id='dominant-button' onclick="changeContent(this, 'dominant')">Dom</td>
+          <td id='major-button' onclick="changeContent(this, 'major')">Maj</td>
+          <td id='diminished-tritone-sub-button' onclick="changeContent(this, 'diminished-tritone-sub')">Dim-Tritone-Sub</td>
+          <td id='flash-cards-button' onclick="flashCardDrill(this)">Flash Cards</td>
         </tr>
       </table>
       <div id="instructions"></div>
-      <table id="content"/>
-      <table id="practise"/>
-      <script>makePractiseItemsTable(practiseItems); showPractiseItems(document.getElementById('practiseButton'));</script>
+      <table id="content"></table>
+      <table id="practise"></table>
+      <div id="voicings">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="12" align="center">Quart Voicings</th>
+            </tr>
+            <tr>
+              <th>M7</th>
+              <th>&#xa0;</th>
+              <th>7</th>
+              <th>&#xa0;</th>
+              <th>m7</th>
+              <th>&#xa0;</th>
+              <th>ø7</th>
+              <th>&#xa0;</th>
+              <th>7alt</th>
+              <th>&#xa0;</th>
+              <th>o7</th>
+              <th>&#xa0;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5</td>
+              <td>^7</td>
+              <td>5</td>
+              <td>1</td>
+              <td>11</td>
+              <td>1</td>
+              <td>11</td>
+              <td>7</td>
+              <td>♯11</td>
+              <td>1</td>
+              <td>11</td>
+              <td>^7</td>
+            </tr>
+
+            <tr>
+              <td>9</td>
+              <td>5</td>
+              <td>9</td>
+              <td>13</td>
+              <td>9</td>
+              <td>5</td>
+              <td>9</td>
+              <td>♭5</td>
+              <td>♭9</td>
+              <td>♯5</td>
+              <td>1</td>
+              <td>♭5</td>
+            </tr>
+
+            <tr>
+              <td>6</td>
+              <td>9</td>
+              <td>13</td>
+              <td>9</td>
+              <td>5</td>
+              <td>9</td>
+              <td>♭5</td>
+              <td>1</td>
+              <td>♯5</td>
+              <td>♯9</td>
+              <td>♭5</td>
+              <td>1</td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>6</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>♭♭7</td>
+            </tr>
+
+            <tr>
+              <td>^7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>♭♭7</td>
+              <td>♭3</td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <table>
+          <thead>
+            <tr>
+              <th colspan="12" align="center">Open 4 Note Voicings</th>
+            </tr>
+            <tr>
+              <th>M7</th>
+              <th>&#xa0;</th>
+              <th>7</th>
+              <th>&#xa0;</th>
+              <th>m7</th>
+              <th>&#xa0;</th>
+              <th>ø7</th>
+              <th>&#xa0;</th>
+              <th>7alt</th>
+              <th>&#xa0;</th>
+              <th>o7</th>
+              <th>&#xa0;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>9</td>
+              <td>5</td>
+              <td>9</td>
+              <td>13</td>
+              <td>9</td>
+              <td>5</td>
+              <td>1</td>
+              <td>♭3</td>
+              <td>♭9</td>
+              <td>♯5</td>
+              <td>1</td>
+              <td>♭5</td>
+            </tr>
+
+            <tr>
+              <td>5</td>
+              <td>9</td>
+              <td>13</td>
+              <td>9</td>
+              <td>5</td>
+              <td>9</td>
+              <td>♭5</td>
+              <td>1</td>
+              <td>♯5</td>
+              <td>♭9</td>
+              <td>♭5</td>
+              <td>1</td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>^7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>♭♭7</td>
+            </tr>
+
+            <tr>
+              <td>^7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>♭♭7</td>
+              <td>♭3</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table>
+          <thead>
+            <tr>
+              <th colspan="12" align="center">Closed 4 Note Voicings</th>
+            </tr>
+            <tr>
+              <th>M7</th>
+              <th>&#xa0;</th>
+              <th>7</th>
+              <th>&#xa0;</th>
+              <th>m7</th>
+              <th>&#xa0;</th>
+              <th>ø7</th>
+              <th>&#xa0;</th>
+              <th>7alt</th>
+              <th>&#xa0;</th>
+              <th>o7</th>
+              <th>&#xa0;</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>5</td>
+              <td>9</td>
+              <td>13</td>
+              <td>9</td>
+              <td>5</td>
+              <td>9</td>
+              <td>♭5</td>
+              <td>1</td>
+              <td>♯5</td>
+              <td>♭9</td>
+              <td>♭5</td>
+              <td>1</td>
+            </tr>
+
+            <tr>
+              <td>3</td>
+              <td>^7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>♭♭7</td>
+            </tr>
+
+            <tr>
+              <td>9</td>
+              <td>5</td>
+              <td>9</td>
+              <td>13</td>
+              <td>9</td>
+              <td>5</td>
+              <td>1</td>
+              <td>♭5</td>
+              <td>♭9</td>
+              <td>♯5</td>
+              <td>1</td>
+              <td>♭5</td>
+            </tr>
+
+            <tr>
+              <td>^7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>♭3</td>
+              <td>7</td>
+              <td>3</td>
+              <td>♭♭7</td>
+              <td>♭3</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <script>init();</script>
     </center>
   </body>
 </html>
