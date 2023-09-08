@@ -68,7 +68,30 @@
           ["Diminished / Tritone Sub RH",     "off 7",  "off 3"                    ],
           ["Diminished / Tritone Sub fourth", "off 7",  "off 3"                    ],
       ];
-      var contents = new Map();
+      const pitchToHalfsteps = {
+          "B♯": 0,
+          "C": 0,
+          "C♯": 1,
+          "D♭": 1,
+          "D": 2,
+          "D♯": 3,
+          "E♭": 3,
+          "E": 4,
+          "F♭": 4,
+          "E♯": 5,
+          "F": 5,
+          "F♯": 6,
+          "G♭": 6,
+          "G": 7,
+          "G♯": 8,
+          "A♭": 8,
+          "A": 9,
+          "A♯": 10,
+          "B♭": 10,
+          "B": 11,
+          "C♭": 11,
+      };
+      const contents = new Map();
       contents["notes"] = `
           B♯
           C
@@ -187,6 +210,32 @@
               [array[i], array[j]] = [array[j], array[i]];
           }
       }
+      function indexOfConsecutiveEnharmonics(array) {
+          let lastRoot = null;
+          let nonEmptyItemIdx = -1; // we don't want to count empty entries
+          let firstRoot = null;
+          for (let i = 0; i < array.length; i++) {
+              let curItem = array[i][0].trim();
+              if (curItem === "") { // skip empty lines
+                  continue;
+              }
+              nonEmptyItemIdx++;
+              let rootMatch = curItem.match(/^(.[♭♯b#]?)/);
+              let root = pitchToHalfsteps[rootMatch[1]];
+              if (firstRoot === null) {
+                  firstRoot = root;
+              } else if (root === lastRoot) {
+                  return nonEmptyItemIdx - 1;
+              }
+              lastRoot = root;
+          }
+          if (array.length > 1) { // also check the wrap-around
+              if (firstRoot === lastRoot) {
+                  return nonEmptyItemIdx;
+              }
+          }
+          return -1;
+      }
       function formatAndVaryContent(line) {
           line = line + ""; // toString()
           line = line.replace(/7alt/g, '<sup>7alt</sup>');
@@ -234,8 +283,11 @@
           highlightButton(button);
           var content = contents[what];
           const contentArray = [...content.matchAll(/[^\n]+/g)];
-          if (shuffle)
+          while (shuffle) {
               shuffleArray(contentArray);
+              if (indexOfConsecutiveEnharmonics(contentArray) === -1)
+                  break;
+          }
           var newContent = "";
           for (var line of contentArray) {
 	          line += "";
